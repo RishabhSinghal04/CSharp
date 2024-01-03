@@ -1,0 +1,13 @@
+[25/11/2023 04:06:41 AM]
+        Exception Message: '{' is invalid after a value. Expected either ',', '}', or ']'. Path: $[1] | LineNumber: 6 | BytePositionInLine: 2. The file is gamesInvalidFormat.json
+        Stack Trace:    at GameDataParser.VideoGamesDeserializer.DeserializeFrom(String fileName, String fileContent) in E:\Microsoft VS Code\Microsoft VS Code Save Programs\C# Programs\Game Data Parser\GameDataParser\VideoGamesDeserializer.cs:line 27
+   at GameDataParser.GameDataParserConsoleApp.Run() in E:\Microsoft VS Code\Microsoft VS Code Save Programs\C# Programs\Game Data Parser\GameDataParser\GameDataParserConsoleApp.cs:line 25
+   at Program.<Main>$(String[] args) in E:\Microsoft VS Code\Microsoft VS Code Save Programs\C# Programs\Game Data Parser\GameDataParser\Program.cs:line 72
+
+        [25/11/2023 04:34:59 AM]
+        Exception Message: '{' is invalid after a value. Expected either ',', '}', or ']'. Path: $[1] | LineNumber: 6 | BytePositionInLine: 2. The file is gamesInvalidFormat.json
+        Stack Trace:    at GameDataParser.DataAccess.VideoGamesDeserializer.DeserializeFrom(String fileName, String fileContent) in E:\Microsoft VS Code\Microsoft VS Code Save Programs\C# Programs\Game Data Parser\GameDataParser\DataAccess\VideoGamesDeserializer.cs:line 29
+   at GameDataParser.App.GameDataParserConsoleApp.Run() in E:\Microsoft VS Code\Microsoft VS Code Save Programs\C# Programs\Game Data Parser\GameDataParser\App\GameDataParserConsoleApp.cs:line 29
+   at Program.<Main>$(String[] args) in E:\Microsoft VS Code\Microsoft VS Code Save Programs\C# Programs\Game Data Parser\GameDataParser\Program.cs:line 81
+
+        
