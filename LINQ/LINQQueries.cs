@@ -8,6 +8,8 @@ public class LINQQueries : ILINQQueries
 
     private readonly string newLine = Environment.NewLine;
     private readonly string separator = ", ";
+    private readonly Random rand = new();
+    private const int MIN = -100, MAX = 101;
 
     public LINQQueries(IDisplay display, IDisplayCollection displayCollection)
     {
@@ -54,9 +56,6 @@ public class LINQQueries : ILINQQueries
     {
         _display.Display($"{newLine}Where & OrderBy Methods:-");
 
-        Random rand = new();
-        const int MIN = -100, MAX = 101;
-
         int[] nums = Enumerable.Range(0, 10).
             Select(i => rand.Next(MIN, MAX)).ToArray();
         _displayCollection.Display(nums, separator);
@@ -78,6 +77,73 @@ public class LINQQueries : ILINQQueries
         _displayCollection.Display(orderFloatingPoints, separator);
         // var orderedFloatingPointsDescending = floatingPoints.OrderDescending();
         // _displayCollection.Display(orderedFloatingPointsDescending, separator);
+    }
+
+    public void CountMethod()
+    {
+        _display.Display($"{newLine}Count Method:-");
+
+        var integers = Enumerable.Range(0, 10).
+            Select(i => rand.Next(MIN, MAX)).ToArray();
+        _displayCollection.Display(integers, separator);
+
+        var countOfIntegersGreaterThan10 = integers.Count(num => num > 10);
+        _display.Display(countOfIntegersGreaterThan10.ToString());
+    }
+
+    public void ContainsMethod()
+    {
+        _display.Display($"{newLine}Contains Method:-");
+
+        List<double> floatingPoints = new() { 1.12, 7.5365, 10.23534, -896.46, 0.12345 };
+        bool is0_12345Present = floatingPoints.Contains(0.12345);
+        bool isNegative896_46Present = floatingPoints.Contains(-896.46);
+        bool isNegative896_45Present = floatingPoints.Contains(-896.45);
+
+        _display.Display(is0_12345Present.ToString());
+        _display.Display(isNegative896_46Present.ToString());
+        _display.Display(isNegative896_45Present.ToString());
+    }
+
+    public void FirstAndLastMethods()
+    {
+        _display.Display($"{newLine}First and Last Methods:-");
+
+        List<int> integers = Enumerable.Range(0, 5).
+            Select(num => rand.Next(MIN, MAX)).ToList();
+        _displayCollection.Display(integers, separator);
+
+        var firstOddNumber = integers.FirstOrDefault(number => number % 2 != 0);
+        _display.Display(firstOddNumber.ToString());
+
+        var lastNumber = integers.LastOrDefault();
+        _display.Display(lastNumber.ToString());
+
+        var largestNumber = integers.Order().Last();
+        _display.Display(largestNumber.ToString());
+    }
+
+    public void DistinctMethod()
+    {
+        _display.Display($"{newLine}Distinct Method:-");
+
+        List<int> integers = new() { 1, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 };
+        _displayCollection.Display(integers, separator);
+
+        var noDuplicates = integers.Distinct();
+        _displayCollection.Display(noDuplicates, separator);
+    }
+
+    public void SelectMethod()
+    {
+        _display.Display($"{newLine}Select Method:-");
+
+        List<int> integers = Enumerable.Range(0, 10)
+            .Select(number => rand.Next(MIN, MAX)).ToList();
+        _displayCollection.Display(integers, separator);
+
+        var doubled = integers.Select(number => number * 2);
+        _displayCollection.Display(doubled, separator);
     }
 
     /* private bool IsAnyWordUpperCase(IEnumerable<string> words)
