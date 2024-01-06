@@ -13,7 +13,14 @@ LINQConsoleApp _LINQConsoleApp = new(
     )
 );
 
-_LINQConsoleApp.Run();
+try
+{
+    _LINQConsoleApp.Run();
+}
+catch (Exception ex)
+{
+    displayOnConsole.Display($"An Exception Occurred : {ex.Message}");
+}
 
 Console.WriteLine("Press any key to exit....");
 Console.ReadKey();
@@ -39,7 +46,42 @@ class LINQConsoleApp
         _LINQQueries.AnyAndAll();
         _LINQQueries.WhereMethod();
         _LINQQueries.WhereAndOrderBy();
+        _LINQQueries.CountMethod();
+        _LINQQueries.ContainsMethod();
+        _LINQQueries.FirstAndLastMethods();
+        _LINQQueries.DistinctMethod();
+        _LINQQueries.SelectMethod();
+        OrederBy_();
         DeferredExecution();
+        AverageAndAnonymousTypes();
+    }
+
+    private void OrederBy_()
+    {
+        _display.Display($"{newLine}Order By:-");
+
+        List<Person> persons = new()
+        {
+            new Person("Josh", "Gates", 44),
+            new Person("Bill", "Gates", 64),
+            new Person("Andrew", "", 42),
+            new Person("Sherlock", "Holmes", 40),
+            new Person("John", "Watson", 40),
+            new Person("Greg", "Watson", 42),
+            new Person("Steve", "", 50),
+        };
+
+        _displayCollection.Display(persons, newLine);
+
+        var personsOrderByFirstName = persons.OrderBy(person => person.FirstName);
+        _displayCollection.Display(personsOrderByFirstName, newLine);
+
+        // var personsOrderByDesecendingAge = persons.OrderBy(person => person.Age);
+        // _displayCollection.Display(personsOrderByDesecendingAge, newLine);
+
+        var personsOrderByLastNameThenByAge = persons.OrderBy(person => person.LastName)
+            .ThenBy(person => person.Age);
+        _displayCollection.Display(personsOrderByLastNameThenByAge, newLine);
     }
 
     private void DeferredExecution()
@@ -67,5 +109,34 @@ class LINQConsoleApp
         });
 
         _displayCollection.Display(animalNamesBeginWithD, separator);
+    }
+
+    private void AverageAndAnonymousTypes()
+    {
+        _display.Display($"{newLine}Average and Anonymous Types:-");
+
+        Random rand = new();
+        const int MIN = -10, MAX = 11;
+
+        List<List<int>> listOfIntegers = new()
+        {
+            Enumerable.Range(0,10).Select(number => rand.Next(MIN, MAX)).ToList(),
+            Enumerable.Range(0,11).Select(number => rand.Next(MIN, MAX)).ToList(),
+            Enumerable.Range(0,9).Select(number => rand.Next(MIN, MAX)).ToList(),
+        };
+
+        foreach (var list in listOfIntegers)
+        {
+            _displayCollection.Display(list, separator);
+        }
+
+        var result = listOfIntegers.Select(list => new
+        {
+            list.Count,
+            Average = list.Average()
+        }).Select(countAndAverage => $"Count is {countAndAverage.Count}" +
+            $", Average is {countAndAverage.Average}");
+
+        _displayCollection.Display(result, newLine);
     }
 }
