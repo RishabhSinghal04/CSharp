@@ -8,4 +8,15 @@ public interface ILINQQueries
     void FirstAndLastMethods();
     void DistinctMethod();
     void SelectMethod();
+    void SelectManyMethod();
+    void AggregateMethod();
+    void ConcatAndUnion();
+    void RepeatMethod();
+    void GroupBy();
+    void IntersectAndExcept();
+    void JoinMethod();
+    void SingleMethod();
+    void TakeMethod();
+    void SkipMethod();
+    void ZipMethod();
 }
