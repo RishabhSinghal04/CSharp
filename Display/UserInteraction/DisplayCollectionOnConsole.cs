@@ -20,11 +20,6 @@ public class DisplayEnumerableOnConsole : IDisplayEnumerable
         {
             throw new ArgumentNullException(nameof(collection));
         }
-        if (!collection.Any())
-        {
-            _display.DisplayLine("Collection is empty");
-            return;
-        }
 
         StringBuilder stringBuilder = new();
         bool isFloatingPoint = typeof(IFloatingPoint<>).IsAssignableFrom(typeof(T));
@@ -36,6 +31,11 @@ public class DisplayEnumerableOnConsole : IDisplayEnumerable
                 .Append(separator);
         }
 
+        if(stringBuilder.Length == 0)
+        {
+            _display.DisplayLine("Collection is empty");
+            return;
+        }
         stringBuilder.Length -= separator.Length;
         _display.DisplayLine(stringBuilder);
     }
@@ -54,11 +54,6 @@ public class DisplayDictionaryOnConsole : IDisplayDictionary
     {
         if (dictionary is null)
         {
-            throw new ArgumentNullException(nameof(dictionary));
-        }
-        if (!dictionary.Any())
-        {
-            _display.DisplayLine("Dictionary is empty");
             return;
         }
 
@@ -67,6 +62,12 @@ public class DisplayDictionaryOnConsole : IDisplayDictionary
         foreach (var item in dictionary)
         {
             stringBuilder.Append($"{item.Key} : {item.Value}{Environment.NewLine}");
+        }
+
+        if(stringBuilder.Length == 0)
+        {
+            _display.DisplayLine("Collection is empty");
+            return;
         }
         _display.DisplayLine(stringBuilder);
     }
@@ -83,14 +84,9 @@ public class DisplayLookupOnConsole : IDisplayLookup
 
     public void Display<TKey, TValue>(ILookup<TKey, TValue> lookup)
     {
-        if (lookup is null)
+         if (lookup is null)
         {
             throw new ArgumentNullException(nameof(lookup));
-        }
-        if (!lookup.Any())
-        {
-            _display.DisplayLine("Lookup is empty");
-            return;
         }
 
         StringBuilder stringBuilder = new();
@@ -102,6 +98,12 @@ public class DisplayLookupOnConsole : IDisplayLookup
             {
                 stringBuilder.Append($"{value}{Environment.NewLine}");
             }
+        }
+        
+        if(stringBuilder.Length == 0)
+        {
+            _display.DisplayLine("Collection is empty");
+            return;
         }
         _display.DisplayLine(stringBuilder);
     }
