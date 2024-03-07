@@ -2,7 +2,7 @@
 using System.Numerics;
 using System.Text;
 
-namespace Display.UserInteraction;
+namespace AdvancedCSharpTypes.UserInteraction;
 
 public class DisplayEnumerableOnConsole : IDisplayEnumerable
 {
@@ -14,7 +14,7 @@ public class DisplayEnumerableOnConsole : IDisplayEnumerable
     }
 
     public void Display<T>(IEnumerable<T> collection,
-        string separator, int precision = 4)
+        string separator = ", ", int precision = 4)
     {
         if (collection is null)
         {
@@ -27,17 +27,17 @@ public class DisplayEnumerableOnConsole : IDisplayEnumerable
         foreach (var item in collection)
         {
             stringBuilder.Append(isFloatingPoint ?
-                string.Format("{0:f" + precision + "}", item) : $"{item}")
+                string.Format("{0:F" + precision + "}", item) : $"{item}")
                 .Append(separator);
         }
 
-        if(stringBuilder.Length == 0)
+        if (stringBuilder.Length == 0)
         {
             _display.DisplayLine("Collection is empty");
             return;
         }
         stringBuilder.Length -= separator.Length;
-        _display.DisplayLine(stringBuilder);
+        _display.Display(stringBuilder);
     }
 }
 
@@ -56,7 +56,6 @@ public class DisplayDictionaryOnConsole : IDisplayDictionary
         {
             return;
         }
-
         StringBuilder stringBuilder = new();
 
         foreach (var item in dictionary)
@@ -64,12 +63,12 @@ public class DisplayDictionaryOnConsole : IDisplayDictionary
             stringBuilder.Append($"{item.Key} : {item.Value}{Environment.NewLine}");
         }
 
-        if(stringBuilder.Length == 0)
+        if (stringBuilder.Length == 0)
         {
             _display.DisplayLine("Collection is empty");
             return;
         }
-        _display.DisplayLine(stringBuilder);
+        _display.Display(stringBuilder);
     }
 }
 
@@ -84,11 +83,10 @@ public class DisplayLookupOnConsole : IDisplayLookup
 
     public void Display<TKey, TValue>(ILookup<TKey, TValue> lookup)
     {
-         if (lookup is null)
+        if (lookup is null)
         {
-            throw new ArgumentNullException(nameof(lookup));
+            return;
         }
-
         StringBuilder stringBuilder = new();
 
         foreach (var key in lookup)
@@ -99,12 +97,12 @@ public class DisplayLookupOnConsole : IDisplayLookup
                 stringBuilder.Append($"{value}{Environment.NewLine}");
             }
         }
-        
-        if(stringBuilder.Length == 0)
+
+        if (stringBuilder.Length == 0)
         {
             _display.DisplayLine("Collection is empty");
             return;
         }
-        _display.DisplayLine(stringBuilder);
+        _display.Display(stringBuilder);
     }
 }
